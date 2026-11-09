@@ -1,0 +1,5 @@
+{
+  "name": "claude-mods",
+  "owner": { "name": "JDname0" },
+  "plugins": [{ "name": "indicateurs", "source": "./" }]
+}

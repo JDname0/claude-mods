@@ -2,10 +2,13 @@
 
 Un panneau affiché à côté du chat, dans chaque session et pour n'importe quel projet :
 
-- **Environnement** : cloud ou local, dossier, branche git, dépôt, modèle
-- **Contexte** : % utilisé, barre colorée, détail par catégorie, coût de la session (mis à jour après chaque réponse)
+- **Environnement** : cloud ou local, dossier, branche git, dépôt, appareils qui suivent la session (Remote Control), modèle, nombre de messages, durée
+- **Contexte** : % utilisé, barre colorée, détail par catégorie (Messages, outils système, outils MCP, prompt système, skills, mémoire, autocompact, espace libre, outils différés…), nombre d'outils MCP, de fichiers mémoire, d'agents et de skills
+- **Limites d'usage** : fenêtres 5 h et 7 jours avec l'heure de remise à zéro, coût de la session
 - **Connecteurs** : connectés / à connecter / bloqués
-- **Modifications** : fichiers modifiés, lignes ajoutées et supprimées
+- **Activité** : nombre d'actions et outils les plus utilisés
+- **Résultats** : fichiers créés ou modifiés par Claude pendant la session
+- **Modifications** : fichiers modifiés, lignes ajoutées et supprimées, commits pas encore poussés, dernier commit
 - Bouton **Actualiser**, et commande `/indicateurs` pour rouvrir le panneau
 
 ## Installation

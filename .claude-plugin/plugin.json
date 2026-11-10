@@ -1,1 +1,1 @@
-{ "name": "indicateurs", "version": "0.3.0", "description": "Panneau d'indicateurs à côté du chat : contexte, environnement, dossier/branche, connecteurs, modifications", "types": "./types/index.d.ts" }
+{ "name": "indicateurs", "version": "0.4.0", "description": "Panneau d'indicateurs à côté du chat : contexte, environnement, dossier/branche, connecteurs, modifications", "types": "./types/index.d.ts" }

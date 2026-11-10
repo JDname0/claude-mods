@@ -2,6 +2,11 @@
 
 Un panneau affiché à côté du chat, dans chaque session et pour n'importe quel projet :
 
+- **Alertes** : contexte presque plein, limite d'usage au-delà de 80 %, commits pas encore poussés
+- **Raccourcis** : « Où en est-on ? », rituel de fin de session (si le projet a un `RECAP.md`), lancer le serveur local, vérifier avant de pousser. Chaque bouton envoie la demande à Claude, rien ne part vers l'extérieur
+- **Tâches en cours** : ce que Claude suit dans la session, avec une barre de progression
+- **Notes du projet** : un bloc de notes gardé d'une session à l'autre, propre à chaque projet
+- **Règles du projet** : les règles clés lues dans le `CLAUDE.md` du projet
 - **Environnement** : cloud ou local, dossier, branche git, dépôt, appareils qui suivent la session (Remote Control), modèle, nombre de messages, durée
 - **Contexte** : % utilisé, barre colorée, détail par catégorie (Messages, outils système, outils MCP, prompt système, skills, mémoire, autocompact, espace libre, outils différés…), nombre d'outils MCP, de fichiers mémoire, d'agents et de skills
 - **Limites d'usage** : fenêtres 5 h et 7 jours avec l'heure de remise à zéro, coût de la session

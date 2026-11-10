@@ -21,6 +21,10 @@ export type Place = {
   surfaces: string[]
   turns: number
   startedAt: number
+  projectKey: string
+  hasRecap: boolean
+  hasDevServer: boolean
+  rules: string[]
 }
 export type Changes = {
   files: number
@@ -32,6 +36,7 @@ export type Changes = {
 }
 export type Connector = { name: string; status: 'ok' | 'auth' | 'fail' | 'off' }
 export type Connectors = { checkedAt: number; list: Connector[] } | null
+export type Task = { id: string; subject: string; status: 'pending' | 'in_progress' | 'completed' }
 export type Activity = { calls: number; byTool: Record<string, number>; outputs: string[] }
 
 declare module 'claude-code' {
@@ -43,6 +48,8 @@ declare module 'claude-code' {
       connectors: Connectors
       isChecking: boolean
       isCompacting: boolean
+      tasks: Shaped<Task[]>
+      note: string | null
       activity: Activity
     }
   }

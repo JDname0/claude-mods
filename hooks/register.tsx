@@ -11,6 +11,7 @@ const place = atom({ plugin: 'indicateurs', key: 'place' } as const, null, { sha
 const changes = atom({ plugin: 'indicateurs', key: 'changes' } as const, null, { shape: 'changes-2' })
 const connectors = atom({ plugin: 'indicateurs', key: 'connectors' } as const, null)
 const isChecking = atom({ plugin: 'indicateurs', key: 'isChecking' } as const, false)
+const isCompacting = atom({ plugin: 'indicateurs', key: 'isCompacting' } as const, false)
 const emptyActivity: Activity = { calls: 0, byTool: {}, outputs: [] }
 const activity = atom({ plugin: 'indicateurs', key: 'activity' } as const, emptyActivity)
 
@@ -145,6 +146,20 @@ async function refreshConnectors($: EngineInterface): Promise<void> {
   }
 }
 
+async function compactNow($: EngineInterface): Promise<void> {
+  if (await read($, isCompacting)) return
+  await update($, isCompacting, () => true)
+  try {
+    const r = await $.session.compact()
+    $.ui.toast('skip' in r && r.skip ? `Compactage annulé : ${r.skip}` : 'Session compactée.')
+  } catch {
+    $.ui.toast('Compactage impossible pour le moment.')
+  } finally {
+    await update($, isCompacting, () => false)
+    await refreshUsage($).catch(() => undefined)
+  }
+}
+
 async function refreshAll($: EngineInterface, withConnectors: boolean): Promise<void> {
   await Promise.all([
     refreshUsage($).catch(() => undefined),
@@ -192,7 +207,9 @@ export const register: Register = on => {
   })
 
   on('turn.complete', async ($, e, next) => {
-    if (e.agentId === undefined) void refreshPlace($).catch(() => undefined)
+    if (e.agentId === undefined) {
+      void refreshPlace($).catch(() => undefined)
+    }
     return next(e)
   })
 
@@ -204,6 +221,7 @@ export const register: Register = on => {
     const k = await read($, connectors)
     const act = await read($, activity)
     const checking = await read($, isChecking)
+    const compacting = await read($, isCompacting)
     const now = await $.clock.now()
 
     const pct = u?.percent ?? null
@@ -245,6 +263,11 @@ export const register: Register = on => {
             <Box flexDirection="column">
               <Text>{pct} % utilisé · {fmt(u.tokens ?? 0)} / {fmt(u.window)}</Text>
               <Text color={tone(pct)}>{bar}</Text>
+              {pct >= 70 && (
+                <Text color={pct >= 85 ? 'error' : 'warning'} bold>
+                  ⚠ Contexte bientôt plein : pense à compacter
+                </Text>
+              )}
               {u.categories.map(cat => (
                 <Text key={cat.name} dimColor={cat.isDeferred}>
                   {cat.name}{cat.isDeferred ? ' (différé)' : ''} : {fmt(cat.tokens)}
@@ -344,11 +367,18 @@ export const register: Register = on => {
           )}
         </Box>
 
-        <Button
-          key="refresh"
-          label={checking ? 'Actualisation…' : 'Actualiser'}
-          onPress={() => refreshAll($, true)}
-        />
+        <Box gap={1}>
+          <Button
+            key="refresh"
+            label={checking ? 'Actualisation…' : 'Actualiser'}
+            onPress={() => refreshAll($, true)}
+          />
+          <Button
+            key="compact"
+            label={compacting ? 'Compactage…' : 'Compacter'}
+            onPress={() => compactNow($)}
+          />
+        </Box>
       </Box>
     )
   })

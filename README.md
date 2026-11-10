@@ -9,6 +9,7 @@ Un panneau affiché à côté du chat, dans chaque session et pour n'importe que
 - **Activité** : nombre d'actions et outils les plus utilisés
 - **Résultats** : fichiers créés ou modifiés par Claude pendant la session
 - **Modifications** : fichiers modifiés, lignes ajoutées et supprimées, commits pas encore poussés, dernier commit
+- Alerte quand le contexte dépasse 70 %, bouton **Compacter** (comme `/compact`)
 - Bouton **Actualiser**, et commande `/indicateurs` pour rouvrir le panneau
 
 ## Installation

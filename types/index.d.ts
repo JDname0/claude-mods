@@ -42,6 +42,7 @@ declare module 'claude-code' {
       changes: Shaped<Changes | null>
       connectors: Connectors
       isChecking: boolean
+      isCompacting: boolean
       activity: Activity
     }
   }
